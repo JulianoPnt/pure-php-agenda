@@ -51,6 +51,15 @@ You can run all start script manually
 
 After this you can access the project by http://localhost
 
+### Setup Project Database
+
+Open mysql bash as section "Acessing database" first item.
+Then use:
+```shell script
+ mysql -u "$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" < "db/database_initial.sql"
+```
+Don't forget to change YOUR_DATABASE_NAME.
+
 ## How to use
 
 ### Requiring a package
@@ -73,11 +82,6 @@ Access mysql shell
 mysql -u "$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD"
 ```
 
-#### Restoring a backup of all databases
-
-```sh
-source .env && sudo docker exec -i $(sudo docker-compose ps -q mysql) mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" < "agenda/database.sql"
-```
 
 ## License
 

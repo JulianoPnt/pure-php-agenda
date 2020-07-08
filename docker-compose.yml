@@ -12,7 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: teste_cohros
     volumes:
-      - /home/juliano/development/docker/volumes/cohros-mysql:/var/lib/mysql
+      - "./data/db/mysql:/var/lib/mysql"
+      - "./data/structure:/db"
       
   nginx:
     container_name: nginx
