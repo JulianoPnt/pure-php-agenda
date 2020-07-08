@@ -5,7 +5,7 @@ namespace JPF\DB;
 use PDO, PDOException;
 
 // Conexão
-define('HOST', 'db');
+define('HOST', 'mysql');
 define('DBNAME', 'teste_cohros');  
 define('CHARSET', 'utf8');  
 define('USER', 'root');  

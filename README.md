@@ -43,7 +43,7 @@ After this you can access the project by http://localhost
 
 You can run all start script manually
 
-```
+```shell script
 1. docker-compose up --build -d
 2. docker run --rm --interactive --tty -v $PWD/agenda:/app composer install
 (Optional) 3. docker ps -a 
@@ -55,10 +55,29 @@ After this you can access the project by http://localhost
 
 ### Requiring a package
 To require a package you can use the following command
-```
+```shell script
 docker run --rm --interactive --tty -v $PWD/agenda:/app composer require *author/package_name*
 ```
 Note: Don't forget to replace *author/package_name*. 
+
+### Acessing database
+
+Open bash in mysql container
+```shell script
+sudo docker exec -it mysql bash
+```
+
+Access mysql shell
+
+```shell script
+mysql -u "$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD"
+```
+
+#### Restoring a backup of all databases
+
+```sh
+source .env && sudo docker exec -i $(sudo docker-compose ps -q mysql) mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" < "agenda/database.sql"
+```
 
 ## License
 
