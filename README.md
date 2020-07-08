@@ -43,7 +43,6 @@ Then use:
 ```shell script
  mysql -u "$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" < "db/database_initial.sql"
 ```
-Don't forget to change YOUR_DATABASE_NAME.
 
 ## How to use
 
