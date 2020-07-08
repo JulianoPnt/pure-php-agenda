@@ -10,22 +10,7 @@ Docker
 Docker Compose
 ```
 
-### Installing
-
-open docker-compose.yml file and change mysql volume location to your's. Replacing
-
-```
-    volumes:
-      - /home/juliano/development/docker/volumes/cohros-db:/var/lib/mysql
-```
-
-To
-```
-    volumes:
-      - *your_local_path_to_save_mysql_data*:/var/lib/mysql
-```
-
-Note: Don't forget to check if other process are open on ports: 80, 9000, 3306. Those ports will be used by docker.
+##### Note: Don't forget to check if other process are open on ports: 80, 9000, 3306. Those ports will be used by docker.
 
 #### First way
 Note: Don't forget to give a+x permission to *start.sh* file
