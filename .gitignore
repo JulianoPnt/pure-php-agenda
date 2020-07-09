@@ -1,2 +1,5 @@
 vendor/
 .idea/
+logs/request.log
+logs/errors.log
+logs/app.log
