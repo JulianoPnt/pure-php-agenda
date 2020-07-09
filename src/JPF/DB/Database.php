@@ -3,13 +3,14 @@
 namespace JPF\DB;
 
 use PDO, PDOException;
+use App\Lib\Config;
 
 // Conexão
-define('HOST', 'localhost');
-define('DBNAME', 'teste_cohros');  
-define('CHARSET', 'utf8');  
-define('USER', 'root');  
-define('PASSWORD', '');
+define('HOST', Config::get('DB_HOST'));
+define('DBNAME', Config::get('DB_NAME'));  
+define('CHARSET',  Config::get('DB_CHARSET'));  
+define('USER',  Config::get('DB_USER'));  
+define('PASSWORD',  Config::get('DB_PASSWORD'));
 
 class Database 
 {

@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use Exception;
+use JPF\DB\Database;
+
 class Home
 {
     public function index()
     { 
-        echo 'Hello World';
+        return ['Welcome' => "Please select a valid route."];   
     }
 }
