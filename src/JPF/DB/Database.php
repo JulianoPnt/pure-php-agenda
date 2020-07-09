@@ -5,11 +5,11 @@ namespace JPF\DB;
 use PDO, PDOException;
 
 // Conexão
-define('HOST', 'mysql');
+define('HOST', 'localhost');
 define('DBNAME', 'teste_cohros');  
 define('CHARSET', 'utf8');  
 define('USER', 'root');  
-define('PASSWORD', 'root');
+define('PASSWORD', '');
 
 class Database 
 {
