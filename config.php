@@ -8,5 +8,8 @@ return [
     'DB_NAME' => 'teste_cohros',
     'DB_CHARSET' => 'utf8',
     'DB_USER' => 'root',
-    'DB_PASSWORD' => ''
+    'DB_PASSWORD' => '',
+
+    //JWT
+    'JWT_SECRET' => 'CHANGEME'
 ];

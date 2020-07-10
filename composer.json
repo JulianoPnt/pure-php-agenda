@@ -9,7 +9,10 @@
         }
     ],
     "require": {
-        "monolog/monolog": "1.25.1"
+        "monolog/monolog": "1.25.1",
+        "firebase/php-jwt": "^5.2",
+        "nesbot/carbon": "^2.36",
+        "rakit/validation": "^1.2"
     },
     "autoload": {
         "psr-4": {

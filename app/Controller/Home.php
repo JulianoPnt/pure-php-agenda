@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use Exception;
-use JPF\DB\Database;
-
 class Home
 {
     public function index()
