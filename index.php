@@ -8,8 +8,15 @@ use JPF\Router\Response;
 use App\Controller\Home;
 use App\Controller\AuthController;
 
-function ValidateRequest($bearerToken) {
-    return (new AuthController())->IsTokenExpired($bearerToken);
+function ValidateToken($bearerToken, $response) {
+    $auth = (new AuthController())->IsTokenExpired($bearerToken);
+    if($auth) {
+        $response->status(401)->toJSON([
+            "message" => 'Unauthorized'
+        ]);
+    } 
+
+    return true;
 }
 
 /* Simple route for example
@@ -19,6 +26,10 @@ Router::get('/api/example/([0-9]*)', function (Request $req, Response $res) {
         'status' => 'ok'
     ]);
 });
+
+Routes that need authentication:
+Add 
+ValidateToken($req->getBearerToken(), $res);
 */
 
 Router::get('/', function (Request $req, Response $res) {
@@ -58,12 +69,7 @@ Router::post('/api/auth/register', function (Request $req, Response $res) {
 
 
 Router::post('/api/auth/checktoken', function (Request $req, Response $res) {
-    $auth = ValidateRequest($req->getBearerToken());
-    if($auth) {
-        $res->status(401)->toJSON([
-            "message" => 'Unauthorized'
-        ]);
-    } 
+    ValidateToken($req->getBearerToken(), $res);
 
     $res->toJSON([
         'message' => 'Authorized'
