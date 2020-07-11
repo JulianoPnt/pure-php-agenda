@@ -30,6 +30,15 @@ class Router
 
         self::on($route, $callback);
     }
+    
+    public static function delete($route, $callback)
+    {
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'DELETE') !== 0) {
+            return;
+        }
+
+        self::on($route, $callback);
+    }
 
     public static function on($regex, $cb)
     {
