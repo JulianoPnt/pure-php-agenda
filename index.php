@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
+use App\Controller\AgendaController;
 use JPF\App;
 use JPF\Router\Router;
 use JPF\Router\Request;
@@ -17,6 +18,16 @@ function ValidateToken($bearerToken, $response) {
     } 
 
     return true;
+}
+
+function ErrorHandler($response, $controller){
+    if(isset($controller['code'])) {
+        $response->status($controller['code'])->toJSON([
+            "message" => $controller['message']
+        ]);
+    } else {
+        $response->toJSON($controller);
+    }    
 }
 
 /* Simple route for example
@@ -46,27 +57,14 @@ Router::get('/api', function (Request $req, Response $res) {
 Router::post('/api/auth/login', function (Request $req, Response $res) {
     $login = (new AuthController())->login($req->getJSON());
 
-    if(isset($login['code'])) {
-        $res->status($login['code'])->toJSON([
-            "message" => $login['message']
-        ]);
-    } else {
-        $res->toJSON($login);
-    }    
+    ErrorHandler($res, $login);
 });
 
 Router::post('/api/auth/register', function (Request $req, Response $res) {
     $register = (new AuthController())->register($req->getJSON());
 
-    if(isset($register['code'])) {
-        $res->status($register['code'])->toJSON([
-            "message" => $register['message']
-        ]);
-    } else {
-        $res->toJSON($register);
-    }    
+    ErrorHandler($res, $register);
 });
-
 
 Router::post('/api/auth/checktoken', function (Request $req, Response $res) {
     ValidateToken($req->getBearerToken(), $res);
@@ -76,5 +74,39 @@ Router::post('/api/auth/checktoken', function (Request $req, Response $res) {
     ]);
 });
 //End Auth routes
+
+//Agenda Routes
+Router::get('/api/agenda', function (Request $req, Response $res) {
+    ValidateToken($req->getBearerToken(), $res);
+
+    $agenda = (new AgendaController())->getAll($req->getJSON()); // { "page":1,"perPage":5}
+
+    ErrorHandler($res, $agenda);
+});
+
+Router::get('/api/agenda/(.*[0-9].*)', function (Request $req, Response $res) { //Must contain ID after agenda/ (Regex: .*[0-9].*)
+    ValidateToken($req->getBearerToken(), $res);
+
+    $agenda = (new AgendaController())->getByID($req->params[0]); 
+
+    ErrorHandler($res, $agenda);
+});
+
+Router::post('/api/agenda', function (Request $req, Response $res) {
+    ValidateToken($req->getBearerToken(), $res);
+
+    $agenda = (new AgendaController())->insert($req->getJSON()); 
+
+    ErrorHandler($res, $agenda);
+});
+
+Router::delete('/api/agenda/(.*[0-9].*)', function (Request $req, Response $res) {
+    ValidateToken($req->getBearerToken(), $res);
+
+    $agenda = (new AgendaController())->delete($req->params[0]); 
+
+    ErrorHandler($res, $agenda);
+});
+//End Agenda Routes
 
 App::run();
