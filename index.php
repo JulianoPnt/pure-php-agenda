@@ -1,10 +1,10 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use App\Lib\App;
-use App\Lib\Router;
-use App\Lib\Request;
-use App\Lib\Response;
+use JPF\App;
+use JPF\Router\Router;
+use JPF\Router\Request;
+use JPF\Router\Response;
 use App\Controller\Home;
 use App\Controller\AuthController;
 

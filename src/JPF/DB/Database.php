@@ -3,7 +3,7 @@
 namespace JPF\DB;
 
 use PDO, PDOException;
-use App\Lib\Config;
+use JPF\Config\Config;
 
 // Conexão
 define('HOST', Config::get('DB_HOST'));

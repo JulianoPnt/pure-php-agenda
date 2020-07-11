@@ -1,9 +1,10 @@
-<?php 
+<?php
 
-namespace App\Lib;
+namespace JPF\Logger;
 
 use Monolog\ErrorHandler;
 use Monolog\Handler\StreamHandler;
+use JPF\Config\Config;
 
 class Logger extends \Monolog\Logger
 {
@@ -27,7 +28,7 @@ class Logger extends \Monolog\Logger
     public static function getInstance($key = "app", $config = null)
     {
         if (empty(self::$loggers[$key])) {
-            self::$loggers[$key] = new Logger($key, $config);
+            self::$loggers[$key] = new \Monolog\Logger($key, $config);
         }
 
         return self::$loggers[$key];
@@ -39,7 +40,7 @@ class Logger extends \Monolog\Logger
         $LOG_PATH = Config::get('LOG_PATH', __DIR__ . '/../../logs');
 
         // Error Log
-        self::$loggers['error'] = new Logger('errors');
+        self::$loggers['error'] = new \Monolog\Logger('errors');
         self::$loggers['error']->pushHandler(new StreamHandler("{$LOG_PATH}/errors.log"));
         ErrorHandler::register(self::$loggers['error']);
 
@@ -49,7 +50,7 @@ class Logger extends \Monolog\Logger
             $_REQUEST,
             trim(file_get_contents("php://input"))
         ];
-        self::$loggers['request'] = new Logger('request');
+        self::$loggers['request'] = new \Monolog\Logger('request');
         self::$loggers['request']->pushHandler(new StreamHandler("{$LOG_PATH}/request.log"));
         self::$loggers['request']->info("REQUEST", $data);
     }

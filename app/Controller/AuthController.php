@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Lib\Config;
+use JPF\Config\Config;
 use \Firebase\JWT\JWT;
 use Carbon\Carbon;
 use App\Model\AuthModel;
 use Rakit\Validation\Validator;
-use App\Lib\UniqueRule;
+use JPF\ExtraValidation\UniqueRule;
 
 class AuthController
 {

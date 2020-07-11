@@ -1,7 +1,8 @@
 <?php 
 
-namespace App\Lib;
+namespace JPF;
 
+use JPF\Logger\Logger;
 class App
 {
     public static function run()

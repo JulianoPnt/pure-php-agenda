@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib;
+namespace JPF\ExtraValidation;
 
 use PDO;
 use JPF\DB\Database;
