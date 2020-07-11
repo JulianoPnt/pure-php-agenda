@@ -8,7 +8,7 @@ use Rakit\Validation\Rule;
 
 class UniqueRule extends Rule
 {
-    protected $message = ":attribute :value is alreay in use";
+    protected $message = ":attribute :value is already in use";
     
     protected $fillableParams = ['table', 'column'];
     
