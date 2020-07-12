@@ -3,8 +3,8 @@
 namespace App\Model;
 
 use PDO;
-use PDOException;
 use JPF\DB\Database;
+use JPF\Paginator\Paginator;
 
 class AgendaModel {
     private $database;
@@ -17,7 +17,7 @@ class AgendaModel {
 
     public function get() 
     {
-        $sql= "SELECT email, password FROM contacts";
+        $sql= "SELECT * FROM contacts";
         $stmt = $this->database->prepare($sql);
         $stmt->execute();
         if($stmt->rowCount() > 0)
@@ -28,7 +28,17 @@ class AgendaModel {
 
     public function getPaginated($page, $perPage) 
     {
+        $paginator = new Paginator($page,$perPage);
 
+        $sql= "SELECT * FROM contacts LIMIT :offset, :perpage";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':offset', $paginator->offset(), PDO::PARAM_INT); 
+        $stmt->bindParam(':perpage', $perPage, PDO::PARAM_INT); 
+        $stmt->execute();
+        if($stmt->rowCount() > 0)
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return false;
     }
 
 
