@@ -77,7 +77,8 @@ class AuthController
             $expiration = Carbon::now('America/Sao_Paulo')->addDays(3);
 
             $payload = array(
-                "user_email" => $data->email,
+                "user_id" => $user_data['id'],
+                "user_email" => $user_data['email'],
                 "password" => $user_data['password'],
                 "logged_at" => Carbon::now('America/Sao_Paulo'),
                 "expires_at" => $expiration

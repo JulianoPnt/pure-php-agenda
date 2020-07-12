@@ -17,7 +17,7 @@ class AuthModel {
 
     public function selectUser($email) 
     {
-        $sql= "SELECT email, password FROM users WHERE email = :email";
+        $sql= "SELECT id, email, password FROM users WHERE email = :email";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR); 
         $stmt->execute();
