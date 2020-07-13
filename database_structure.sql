@@ -6,8 +6,7 @@ create table users
     last_name   varchar(40)                           not null,
     email       varchar(60)                           not null,
     password    varchar(255)                          not null,
-    created_at  timestamp default current_timestamp() null,
-    modified_at timestamp                             null,
+    created_at  timestamp default current_timestamp() null
     constraint users_email_uindex
         unique (email)
 );
@@ -28,8 +27,7 @@ create table contacts
     address_number   int                                   null,
     address_cep      varchar(20)                           null,
     address_district varchar(40)                           null,
-    created_at       timestamp default current_timestamp() null,
-    modified_at      timestamp                             null
+    created_at       timestamp default current_timestamp() null
 );
 
 create index contacts_users_id_fk
