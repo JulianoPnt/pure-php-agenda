@@ -79,7 +79,7 @@ Router::post('/api/auth/checktoken', function (Request $req, Response $res) {
 Router::get('/api/agenda', function (Request $req, Response $res) {
     ValidateToken($req->getBearerToken(), $res);
 
-    $agenda = (new AgendaController())->getAll($req->getJSON()); // { "page":1,"perPage":5}
+    $agenda = (new AgendaController())->getUserContacts($req->getJSON(), $req->getBearerToken()); // { "page":1,"perPage":5}
 
     ErrorHandler($res, $agenda);
 });
@@ -87,7 +87,7 @@ Router::get('/api/agenda', function (Request $req, Response $res) {
 Router::get('/api/agenda/(.*[0-9].*)', function (Request $req, Response $res) { //Must contain ID after agenda/ (Regex: .*[0-9].*)
     ValidateToken($req->getBearerToken(), $res);
 
-    $agenda = (new AgendaController())->getByID($req->params[0]); 
+    $agenda = (new AgendaController())->getUserContactsByID($req->params[0], $req->getBearerToken()); 
 
     ErrorHandler($res, $agenda);
 });
@@ -95,7 +95,15 @@ Router::get('/api/agenda/(.*[0-9].*)', function (Request $req, Response $res) { 
 Router::post('/api/agenda', function (Request $req, Response $res) {
     ValidateToken($req->getBearerToken(), $res);
 
-    $agenda = (new AgendaController())->insert($req->getJSON()); 
+    $agenda = (new AgendaController())->insert($req->getJSON(), $req->getBearerToken()); 
+
+    ErrorHandler($res, $agenda);
+});
+
+Router::put('/api/agenda', function (Request $req, Response $res) {
+    ValidateToken($req->getBearerToken(), $res);
+
+    $agenda = (new AgendaController())->update($req->getJSON(), $req->getBearerToken()); 
 
     ErrorHandler($res, $agenda);
 });
@@ -103,7 +111,7 @@ Router::post('/api/agenda', function (Request $req, Response $res) {
 Router::delete('/api/agenda/(.*[0-9].*)', function (Request $req, Response $res) {
     ValidateToken($req->getBearerToken(), $res);
 
-    $agenda = (new AgendaController())->delete($req->params[0]); 
+    $agenda = (new AgendaController())->delete($req->params[0], $req->getBearerToken()); 
 
     ErrorHandler($res, $agenda);
 });
