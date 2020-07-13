@@ -43,11 +43,6 @@ Add
 ValidateToken($req->getBearerToken(), $res);
 */
 
-Router::get('/', function (Request $req, Response $res) {
-    //Vue project redirect
-    header('Location: /vue/public');
-});
-
 Router::get('/api', function (Request $req, Response $res) {
     //Just a message to show api is working
     (new Home())->index();

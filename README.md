@@ -1,20 +1,32 @@
 # Test Cohros
 
-## API Documentation
+## Documentation
 
 ### Setup Project
 1 - Setup database_structure.sql in your MySQL or SQLite server.
 
 2 - Edit the config.php file with database connection and JWT secret (can be any password). Then:
 
-``` 
+```
+1º Terminal 
 $ composer install
 $ php -S localhost:8000
+
+2º Terminal 
+$ cd vue
+$ npm install
+$ npm run serve
 ```
+
+API will be working on http://localhost:8000/api/
+Vue Project will be working on http://localhost:8080
+
+## API Documentation
 
 ### Routes
 
 Note: All agenda routes are limited by account permissions (Can only update, delete own contacts).
+Note: All routes must be prefixed with /api. Example: /api/auth/login.
 
 HTTP Method | Route | Name
 ------------ | ------------- | -------------
@@ -99,7 +111,7 @@ JSON Example:
 ```
 {
     "page": 1,
-    "perpage": 3
+    "perpage": 2
 }
 ```
 Server Response Example:
