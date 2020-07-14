@@ -13,7 +13,7 @@
                     Sign in</button>
               </form>
           </div>
-          <router-link router-link to="/register" class="text-center new-account">Already have an account? Back to login</router-link>
+          <router-link router-link to="/register" class="text-center new-account">Don't have an account? Register</router-link>
 
       </div>
     </div>
