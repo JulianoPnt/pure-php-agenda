@@ -68,7 +68,7 @@ class AgendaController
 
         $validation = $validator->make((array) $data, [
             'first_name'            => 'required|min:5|max:40',
-            'last_name'             => 'alpha_spaces',
+            'last_name'             => 'required|alpha_spaces',
             'email'                 => 'required|email|min:8|max:60',
             'address_city'          => 'alpha_spaces|min:5|max:40',
             'address_state'         => 'alpha_spaces|min:5|max:40',
