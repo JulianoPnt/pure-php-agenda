@@ -13,14 +13,17 @@ Open config.php and change to your directory name as in the example:
 http://localhost/test-cohros/ 
 'DIRECTORY' => '/test-cohros',
 
-3 - Open /vue/src/main.js and change api path in my case: http://localhost/test-cohros/api/
+3 - Open /vue/src/main.js and change api_url in my case: http://localhost/test-cohros/api/
 
+4 - Install dependencies
 ```
-Terminal in root folder
-
 $ composer install
 $ cd vue
 $ npm install
+```
+5 - Start vue project
+```
+In vue directory
 $ npm run serve
 ```
 

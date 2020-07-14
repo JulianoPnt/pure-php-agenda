@@ -48,3 +48,4 @@ create table contacts_phones
 create index contacts_phones_contacts_id_fk
     on contacts_phones (contact_id);
 
+INSERT INTO teste_cohros.users (id, first_name, last_name, email, password, created_at, modified_at) VALUES (5, 'Juliano', 'Pantoni Filho', 'contato@julianopantoni.dev', '$2y$10$Y0UY8Ubv.5UXN9uj3ilKaOKZ/apM1q49F7S4zr7jhIqx28Grbpj/C', '2020-07-12 21:59:43', null);

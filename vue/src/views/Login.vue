@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'login',
   components: {
@@ -55,15 +54,16 @@ export default {
                 data: {
                     email: this.login,
                     password: this.password
-                }
+                },
+                headers: {'Content-Type': 'application/json'},
             })
             .then(response => (
-                console.log(response)
+                console.log(response.data)
             ))
             .catch(error => {
-                console.log(error);
+                console.log(error.message);
                 this.error = true;
-                this.error_msg = error;
+                this.error_msg = error.message;
             })
             .finally(() =>{
                 this.loading = false;
