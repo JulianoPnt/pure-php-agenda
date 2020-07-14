@@ -50,7 +50,7 @@ export default {
             this.loading = true;
 
             axios({
-                url: 'http://localhost:8000/api/auth/login',
+                url: this.api_url + 'auth/login',
                 method: 'POST',
                 data: {
                     email: this.login,

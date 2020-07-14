@@ -16,6 +16,14 @@ library.add(faSpinner)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
+Vue.mixin({
+  data: function() {
+    return {
+      api_url:'http://localhost/test-cohros/api/'
+    }
+  }
+})
+
 new Vue({
   router,
   store,

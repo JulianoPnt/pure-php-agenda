@@ -7,24 +7,23 @@
 
 2 - Edit the config.php file with database connection and JWT secret (can be any password). Then:
 
-```
-1º Terminal 
-$ composer install
-$ php -S localhost:8000
+Using Apache
 
-OR using Apache
-
-Open config.php and change to your paste name as in the example:
+Open config.php and change to your directory name as in the example:
 http://localhost/test-cohros/ 
 'DIRECTORY' => '/test-cohros',
 
-2º Terminal 
+3 - Open /vue/src/main.js and change api path in my case: http://localhost/test-cohros/api/
+
+```
+Terminal in root folder
+
+$ composer install
 $ cd vue
 $ npm install
 $ npm run serve
 ```
 
-API will be working on http://localhost:8000/api/
 Vue Project will be working on http://localhost:8080
 
 ## API Documentation
