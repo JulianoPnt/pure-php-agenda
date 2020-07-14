@@ -7,10 +7,19 @@
               <img class="profile-img" src="../assets/no-profile-photo.png"
                   alt="">
               <form class="form-signin">
-                <input type="text" class="form-control" placeholder="Email" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
+
+                <input v-model="login" type="text" class="form-control" placeholder="Email" required autofocus>
+                <input v-model="password" type="password" class="form-control" placeholder="Password" required>
+
+                <button class="btn btn-lg btn-primary btn-block" type="button" @click="doLogin()" >
+                    Sign in
+                    <font-awesome-icon v-if="loading" icon="spinner" spin />
+                </button>
+
+                
+
+                <p class="text-center" v-if="error"> {{ error_msg }} </p>
+
               </form>
           </div>
           <router-link router-link to="/register" class="text-center new-account">Don't have an account? Register</router-link>
@@ -21,10 +30,46 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   name: 'login',
   components: {
+  },
+  data() {
+    return {
+        loading: false,
+        error: false,
+        error_msg: "none",
+        login: '',
+        password: ''
+    }
+  },
+  methods: {
+    doLogin() {
+        if(!this.loading) {
+            this.loading = true;
+
+            axios({
+                url: 'http://localhost:8000/api/auth/login',
+                method: 'POST',
+                data: {
+                    email: this.login,
+                    password: this.password
+                }
+            })
+            .then(response => (
+                console.log(response)
+            ))
+            .catch(error => {
+                console.log(error);
+                this.error = true;
+                this.error_msg = error;
+            })
+            .finally(() =>{
+                this.loading = false;
+            });
+        }
+    }
   }
 }
 </script>

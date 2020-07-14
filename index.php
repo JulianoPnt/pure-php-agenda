@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: http://localhost:8080");
+header('Access-Control-Max-Age: 86400'); // cache for 1 day
+header("Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, DELETE");         
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Controller\AgendaController;

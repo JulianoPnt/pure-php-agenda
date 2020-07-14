@@ -2,7 +2,11 @@
     <div class="color-bg">
         <nav class="navbar navbar-dark bg-dark">
             <div class="container my-2">
-                <div></div>
+                <div>
+                    <p class="text-white">
+                        Logged as: Juliano
+                    </p>
+                </div>
                 <form class="form-inline my-2 my-lg-0">
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
                 </form>
@@ -185,6 +189,9 @@ table tbody tr.side-tab td .fa-circle {
         color: $--delete-hover;
     }
 }
+table tbody tr:hover .delete-btn {
+    opacity: 1;
+}
 
 .edit-btn {
     cursor: pointer;
@@ -210,10 +217,10 @@ table tbody tr.side-tab td .fa-circle {
         color: $--edit-hover;
     }
 }
-
-table tbody tr:hover .delete-btn {
+table tbody tr:hover .edit-btn {
     opacity: 1;
 }
+
 
 @keyframes fadeInPage {
     0% {
