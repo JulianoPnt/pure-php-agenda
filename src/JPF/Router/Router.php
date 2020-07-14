@@ -2,6 +2,7 @@
 
 namespace JPF\Router;
 
+use JPF\Config\Config;
 class Router
 {
     public static function get($route, $callback)
@@ -42,7 +43,7 @@ class Router
 
     public static function on($regex, $cb)
     {
-        $params = $_SERVER['REQUEST_URI'];
+        $params = str_replace(Config::get('DIRECTORY'),"",$_SERVER['REQUEST_URI']);
         $params = (stripos($params, "/") !== 0) ? "/" . $params : $params;
         $regex = str_replace('/', '\/', $regex);
         $is_match = preg_match('/^' . ($regex) . '$/', $params, $matches, PREG_OFFSET_CAPTURE);

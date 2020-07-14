@@ -2,7 +2,7 @@
 return [
     //Paths
     'LOG_PATH' => __DIR__ . './logs',
-
+    'DIRECTORY' => '/',
     //Database
     'DB_HOST' => 'localhost',
     'DB_NAME' => 'teste_cohros',

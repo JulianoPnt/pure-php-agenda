@@ -12,6 +12,12 @@
 $ composer install
 $ php -S localhost:8000
 
+OR using Apache
+
+Open config.php and change to your paste name as in the example:
+http://localhost/test-cohros/ 
+'DIRECTORY' => '/test-cohros',
+
 2º Terminal 
 $ cd vue
 $ npm install
