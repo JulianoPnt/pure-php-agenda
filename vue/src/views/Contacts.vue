@@ -2,11 +2,7 @@
     <div class="color-bg">
         <nav class="navbar navbar-dark bg-dark">
             <div class="container my-2">
-                <div>
-                    <p class="text-white">
-                        Logged as: Juliano
-                    </p>
-                </div>
+                <div></div>
                 <form class="form-inline my-2 my-lg-0">
                     <button class="btn btn-outline-primary my-2 my-sm-0" @click="logout()">Logout</button>
                 </form>
@@ -25,22 +21,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="side-tab">
-                            <td class="name">Juliano</td>
-                            <td class="name">Pantoni</td>
-                            <td class="clicks">juliano.88@hotmail.com</td>
+                        <tr  v-for="item in items" v-bind:key="item.id" class="side-tab">
+                            <td class="name">{{item.first_name}}</td>
+                            <td class="name">{{item.last_name}}</td>
+                            <td class="clicks">{{item.email}}</td>
                             <td class="delete">
                                 <button class="edit-btn">
-                                    <font-awesome-icon class="edit-icon" icon="pen" />
+                                    <router-link :to="{ path: '/contact/'+ item.id}">
+                                        <font-awesome-icon class="edit-icon" icon="pen" />
+                                    </router-link>
+
                                 </button>
                                 <button class="delete-btn">
-                                    <font-awesome-icon class="delete-icon" icon="trash" />
+                                    <font-awesome-icon class="delete-icon" @click="deleteContact(item.id)" icon="trash" />
                                 </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <nav class="d-flex justify-content-center mt-5">
+                <!-- <nav class="d-flex justify-content-center mt-5">
                     <ul class="pagination ">
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Previous">
@@ -58,7 +57,7 @@
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </nav> -->
             </div>
         </div>
     </div>
@@ -66,6 +65,14 @@
 
 <script>
 export default {
+    data() {
+        return {
+            loading: false,
+            page: 1,
+            perpage: 5,
+            items: [] 
+        }
+    },
     methods: {
         checkToken() {
             return this.$http({
@@ -86,14 +93,53 @@ export default {
                 this.$router.push('/login');
             });
         },
+        getAgenda() {
+            return this.$http({
+                url: this.api_url + 'agenda',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('user_token')
+                },
+                data: {
+                    page: this.page,
+                    perpage: this.perpage
+                }
+            })
+            .then(response => {
+                console.log(response);
+                this.items = response.data.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         logout() {
             localStorage.removeItem('user_token');
             localStorage.removeItem('expires_at');
             this.$router.push('/login');
+        },
+        deleteContact(id) {
+            return this.$http({
+                url: this.api_url + 'agenda/' + id,
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('user_token')
+                }
+            })
+            .then(response => {
+                console.log(response);
+                this.getAgenda();
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     created() {
         this.checkToken();
+        this.getAgenda();
     }
 }
 </script>

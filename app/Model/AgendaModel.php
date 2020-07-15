@@ -52,8 +52,14 @@ class AgendaModel {
         $stmt->bindParam(':user', $user_id, PDO::PARAM_INT); 
         $stmt->bindParam(':contact_id', $contact_id, PDO::PARAM_INT); 
         $stmt->execute();
+
+        $sql2= "SELECT * FROM contacts_phones WHERE contact_id = :contact_id";
+        $stmt2 = $this->database->prepare($sql2);
+        $stmt2->bindParam(':contact_id', $contact_id, PDO::PARAM_INT); 
+        $stmt2->execute();
+
         if($stmt->rowCount() > 0)
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return ['contact' => $stmt->fetchAll(PDO::FETCH_ASSOC), 'phones' => $stmt2->fetchAll(PDO::FETCH_ASSOC)];
 
         return false;
     }
