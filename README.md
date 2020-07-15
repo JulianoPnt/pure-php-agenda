@@ -2,6 +2,11 @@
 
 ## Documentation
 
+### Demonstration
+
+I can't deploy so i decided to make a little video for demonstration:
+https://youtu.be/o_Z2LUYsVpo
+
 ### Setup Project
 1 - Setup database_structure.sql in your MySQL or SQLite server.
 
