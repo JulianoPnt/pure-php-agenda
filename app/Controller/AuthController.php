@@ -6,6 +6,7 @@ use JPF\Config\Config;
 use \Firebase\JWT\JWT;
 use Carbon\Carbon;
 use App\Model\AuthModel;
+use Exception;
 use Rakit\Validation\Validator;
 use JPF\ExtraValidation\UniqueRule;
 
@@ -96,7 +97,11 @@ class AuthController
 
     public function IsTokenExpired($bearer) 
     {
-        $decoded = JWT::decode($bearer, $this->jwt_secret_key, array('HS256'));
+        try {
+            $decoded = JWT::decode($bearer, $this->jwt_secret_key, array('HS256'));
+        } catch (Exception $e) {
+            return true;
+        }
         
         if(Carbon::parse($decoded->expires_at)->gt(Carbon::now('America/Sao_Paulo')));
             return false;

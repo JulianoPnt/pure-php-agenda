@@ -8,7 +8,7 @@
                     </p>
                 </div>
                 <form class="form-inline my-2 my-lg-0">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" @click="logout()">Logout</button>
                 </form>
             </div>
         </nav>
@@ -66,7 +66,35 @@
 
 <script>
 export default {
-
+    methods: {
+        checkToken() {
+            return this.$http({
+                url: this.api_url + 'auth/checktoken',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('user_token')
+                },
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+                localStorage.removeItem('user_token');
+                localStorage.removeItem('expires_at');
+                this.$router.push('/login');
+            });
+        },
+        logout() {
+            localStorage.removeItem('user_token');
+            localStorage.removeItem('expires_at');
+            this.$router.push('/login');
+        }
+    },
+    created() {
+        this.checkToken();
+    }
 }
 </script>
 

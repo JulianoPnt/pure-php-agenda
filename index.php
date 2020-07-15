@@ -20,6 +20,7 @@ function ValidateToken($bearerToken, $response) {
         $response->status(401)->toJSON([
             "message" => 'Unauthorized'
         ]);
+        exit();
     } 
 
     return true;

@@ -57,9 +57,13 @@ export default {
                 },
                 headers: {'Content-Type': 'application/json'},
             })
-            .then(response => (
-                console.log(response.data)
-            ))
+            .then(response => {
+
+                localStorage.setItem('user_token', response.data.bearer_token);
+                localStorage.setItem('expires_at', response.data.expires_at);
+                this.$router.push('/contacts');
+
+            })
             .catch(error => {
                 console.log(error.message);
                 this.error = true;
