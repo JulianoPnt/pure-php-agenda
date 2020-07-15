@@ -10,6 +10,7 @@
         </nav>
         <div class="body">
             <div class="outer-container">
+            <button class="btn btn-primary">New contact</button>
                 <h1>Contact List</h1>
                 <table>
                     <thead>
