@@ -56,7 +56,10 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary" @click="createContact()">Create</button>
+                <button type="button" class="btn btn-primary" @click="createContact()">
+                    Create
+                    <font-awesome-icon v-if="loading" icon="spinner" spin />
+                </button>
                 <button type="button" class="btn btn-secondary" @click="back()">Back</button>
 
                 <p class="text-center" v-if="error"> {{ error_msg }} </p>

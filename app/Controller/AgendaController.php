@@ -117,12 +117,12 @@ class AgendaController
             'first_name'            => 'min:5|max:40',
             'last_name'             => 'alpha_spaces',
             'email'                 => 'email|min:8|max:60',
-            'address_city'          => 'alpha_spaces|min:5|max:40',
-            'address_state'         => 'alpha_spaces|min:5|max:40',
-            'address'               => 'alpha_spaces|min:5|max:40',
-            'address_number'        => 'integer|min:5|max:80',
-            'address_cep'           => 'alpha|min:5|max:20',
-            'address_district'      => 'alpha_spaces|min:5|max:40',
+            'address_city'          => 'alpha_spaces',
+            'address_state'         => 'alpha_spaces',
+            'address'               => 'alpha_spaces',
+            'address_number'        => 'integer',
+            'address_cep'           => 'alpha',
+            'address_district'      => 'alpha_spaces',
         ]);
         
         $validation->validate();
@@ -135,17 +135,10 @@ class AgendaController
 
         $execution_contact = $this->model->updateUserContact($data, $info->user_id);
 
-        if($execution_contact !== FALSE) {
-            foreach($data->phones as $phone) {
-                $execution_phone = $this->model->updateContactPhone($phone->id, $phone->number);
-
-                if($execution_phone === FALSE)
-                    return ['code' => 500, 'message' => 'Failed to update phone'];
-            } 
-            return ['message' => $execution_contact];
+        foreach($data->phones as $phone) {
+            $execution_phone = $this->model->updateContactPhone($phone->id, $phone->number);
         } 
-        else 
-            return ['code' => 500, 'message' => 'Failed to update'];
+        return ['message' => $execution_contact];
     }
 
     public function delete($id, $token) 
