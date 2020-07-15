@@ -5,11 +5,11 @@
             <form>
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="email" class="form-control" v-model="data.contact[0].first_name" placeholder="Enter first name" required>
+                    <input type="text" class="form-control" v-model="data.contact[0].first_name" placeholder="Enter first name" required>
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="email" class="form-control" v-model="data.contact[0].last_name" placeholder="Enter last name" required>
+                    <input type="text" class="form-control" v-model="data.contact[0].last_name" placeholder="Enter last name" required>
                 </div>
                 <div class="form-group">
                     <label>Email address</label>
