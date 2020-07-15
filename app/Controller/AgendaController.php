@@ -91,7 +91,7 @@ class AgendaController
             'address_city'          => 'alpha_spaces|min:5|max:40',
             'address_state'         => 'alpha_spaces|min:5|max:40',
             'address'               => 'alpha_spaces|min:5|max:40',
-            'address_number'        => 'integer|min:5',
+            'address_number'        => 'integer',
             'address_cep'           => 'alpha_dash|min:5|max:20',
             'address_district'      => 'alpha_spaces|min:5|max:40',
             'phones'                => 'array',
