@@ -208,4 +208,16 @@ class AgendaModel {
             return false; 
         }
     }
+
+    public function paginationCheck($user_id) 
+    {
+        $sql= "SELECT COUNT(*) FROM contacts WHERE user_id = :user";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':user', $user_id, PDO::PARAM_INT); 
+        $stmt->execute();
+        if($stmt->rowCount() > 0)
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return false;
+    }
 }

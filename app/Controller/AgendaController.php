@@ -27,15 +27,33 @@ class AgendaController
         return $decoded;
     }
 
-    public function getUserContacts($data, $token) 
+    public function getUserContacts($page, $perpage, $token) 
     {
         //Use token to get only data from this user
         $info = $this->getBearerTokenData($token);
 
         //Pagination set by json in body
-        if(isset($data->page) && isset($data->perpage)){
-            $execution = $this->model->getPaginatedByUser($data->page, $data->perpage, $info->user_id);
-            $execution['pagination'] = ['page' => $data->page, 'perpage' => $data->perpage];
+        if(isset($page) && isset($perpage)){
+            $execution['contacts'] = $this->model->getPaginatedByUser($page, $perpage, $info->user_id);
+
+            $paginator_check = $this->model->paginationCheck($info->user_id);
+
+            if($paginator_check !== FALSE)
+            {
+                $total_contacts = $paginator_check[0]['COUNT(*)'];
+
+                $total_pages = ceil($total_contacts/ $perpage);
+                $next_page = (($page + 1) > $total_pages) ? -1 : ($page + 1);
+                $prev_page = (($page - 1) < 1) ? -1 : ($page - 1);
+    
+                $execution['pagination'] = [
+                    'page' => $page, 
+                    'perpage' => $perpage, 
+                    'next_page' => $next_page, 
+                    'prev_page' => $prev_page, 
+                    'total_pages' => $total_pages
+                ];
+            }
         } else {
             $execution = $this->model->getAllByUser($info->user_id);
         } 

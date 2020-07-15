@@ -15,6 +15,9 @@
                 </router-link>
 
                 <h1>Contact List</h1>
+                <div class="text-center text-capitalize">
+                    <small> {{ pagination.perpage }} per page </small> 
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -25,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  v-for="item in items" v-bind:key="item.id" class="side-tab">
+                        <tr v-for="item in items" v-bind:key="item.id" class="side-tab">
                             <td class="name">{{item.first_name}}</td>
                             <td class="name">{{item.last_name}}</td>
                             <td class="clicks">{{item.email}}</td>
@@ -43,25 +46,29 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- <nav class="d-flex justify-content-center mt-5">
+
+                <nav class="d-flex justify-content-center mt-5">
                     <ul class="pagination ">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                        <li class="page-item" v-if="pagination.prev_page != -1">
+                            <a class="page-link" href="#" @click="setPage(pagination.prev_page)" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                        <li class="page-item" v-for="(p, index) in pagination.total_pages" v-bind:key="index">
+                            <a class="page-link" v-bind:class="checkPage(p)" href="#" @click="setPage(p)">
+                                {{p}}
+                            </a>
+                        </li>
+                        <li class="page-item" v-if="pagination.next_page != -1">
+                            <a class="page-link" href="#" @click="setPage(pagination.next_page)" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>
                         </li>
                     </ul>
-                </nav> -->
+                </nav>
+
             </div>
         </div>
     </div>
@@ -72,28 +79,31 @@ export default {
     data() {
         return {
             loading: false,
-            page: 1,
-            perpage: 5,
+            pagination: {
+                page: 1,
+                perpage: 5, //Default (can be changed)
+                total_pages: 1,
+                next_page: -1,
+                prev_page: -1,
+            },
             items: [] 
         }
     },
     methods: {
         getAgenda() {
-            return this.$http({
-                url: this.api_url + 'agenda',
+            this.$http({
+                url: this.api_url + 'agendaPag/' + this.pagination.page + '/' + this.pagination.perpage,
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('user_token')
-                },
-                data: {
-                    page: this.page,
-                    perpage: this.perpage
                 }
             })
             .then(response => {
                 console.log(response);
-                this.items = response.data.data;
+                this.items = response.data.data.contacts;
+                this.pagination = response.data.data.pagination;
+
+                console.log(this.items);
             })
             .catch(error => {
                 console.log(error);
@@ -120,6 +130,14 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        setPage(page) {
+            this.pagination.page = page;
+            this.getAgenda();
+        },
+        checkPage(page){
+            if(this.pagination.page == page)
+                return 'text-black-50';
         }
     },
     created() {

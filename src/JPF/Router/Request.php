@@ -47,9 +47,9 @@ class Request
     
     public function getBody()
     {
-        if ($this->reqMethod !== 'POST') {
-            return '';
-        }
+            if ($this->reqMethod !== 'POST') {
+                return '';
+            }
 
         $body = [];
         foreach ($_POST as $key => $value) {

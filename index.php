@@ -77,10 +77,10 @@ Router::post('/api/auth/checktoken', function (Request $req, Response $res) {
 //End Auth routes
 
 //Agenda Routes
-Router::get('/api/agenda', function (Request $req, Response $res) {
+Router::get('/api/agendaPag/(.*[0-9].*)/(.*[0-9].*)', function (Request $req, Response $res) { //agendaPag/page/perpage
     ValidateToken($req->getBearerToken(), $res);
 
-    $agenda = (new AgendaController())->getUserContacts($req->getJSON(), $req->getBearerToken()); // { "page":1,"perPage":5}
+    $agenda = (new AgendaController())->getUserContacts($req->params[0], $req->params[1], $req->getBearerToken());
 
     ErrorHandler($res, $agenda);
 });
