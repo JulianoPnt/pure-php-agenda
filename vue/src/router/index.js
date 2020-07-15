@@ -41,6 +41,14 @@ Vue.use(VueRouter)
     // this generates a separate chunk (contact.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "contact" */ '../views/EditContact.vue')
+  },
+  {
+    path: '/newcontact',
+    name: 'Contact',
+    // route level code-splitting
+    // this generates a separate chunk (newcontact.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "newcontact" */ '../views/NewContact.vue')
   }
 ]
 

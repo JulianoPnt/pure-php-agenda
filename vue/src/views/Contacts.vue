@@ -10,7 +10,10 @@
         </nav>
         <div class="body">
             <div class="outer-container">
-            <button class="btn btn-primary">New contact</button>
+                <router-link :to="{ path: '/newcontact'}">
+                    <button class="btn btn-primary" >New contact</button>
+                </router-link>
+
                 <h1>Contact List</h1>
                 <table>
                     <thead>
