@@ -8,7 +8,7 @@
                   alt="">
               <form class="form-signin">
 
-                <input v-model="login" type="text" class="form-control" placeholder="Email" required autofocus>
+                <input v-model="email" type="text" class="form-control" placeholder="Email" required autofocus>
                 <input v-model="password" type="password" class="form-control" placeholder="Password" required>
 
                 <button class="btn btn-lg btn-primary btn-block" type="button" @click="doLogin()" >
@@ -39,7 +39,7 @@ export default {
         loading: false,
         error: false,
         error_msg: "none",
-        login: '',
+        email: '',
         password: ''
     }
   },
@@ -48,11 +48,11 @@ export default {
         if(!this.loading) {
             this.loading = true;
 
-            axios({
+            this.$http({
                 url: this.api_url + 'auth/login',
                 method: 'POST',
                 data: {
-                    email: this.login,
+                    email: this.email,
                     password: this.password
                 },
                 headers: {'Content-Type': 'application/json'},

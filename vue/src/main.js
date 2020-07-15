@@ -10,6 +10,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
+Vue.prototype.$http = axios
+
 library.add(faTrash)
 library.add(faPen)
 library.add(faSpinner)
