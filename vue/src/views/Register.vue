@@ -7,13 +7,17 @@
               <img class="profile-img" src="../assets/no-profile-photo.png"
                   alt="">
               <form class="form-signin">
-                <input type="text" class="form-control" placeholder="First Name" required autofocus>
-                <input type="text" class="form-control" placeholder="Last Name" required>
-                <input type="text" class="form-control" placeholder="Email" required>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <input type="password" class="form-control" placeholder="Confirm Password" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign up</button>
+                <input v-model="first_name" type="text" class="form-control" placeholder="First Name" required autofocus>
+                <input v-model="last_name" type="text" class="form-control" placeholder="Last Name" required>
+                <input v-model="email" type="email" class="form-control" placeholder="Email" required>
+                <input v-model="password" type="password" class="form-control" placeholder="Password" required>
+                <input v-model="confirm_password" type="password" class="form-control" placeholder="Confirm Password" required>
+                <button class="btn btn-lg btn-primary btn-block" type="button" @click="doRegister()">
+                    Sign up
+                    <font-awesome-icon v-if="loading" icon="spinner" spin />    
+                </button>
+                <p class="text-center" v-if="error"> {{ error_msg }} </p>
+
               </form>
             <router-link router-link to="/login" class="text-center new-account">Already have an account? Back to login</router-link>
 
@@ -24,10 +28,54 @@
 </template>
 
 <script>
-
 export default {
-  name: 'login',
+  name: 'register',
   components: {
+  },
+  data() {
+    return {
+        loading: false,
+        error: false,
+        error_msg: "none",
+        email: '',
+        password: '',
+        confirm_password: '',
+        first_name: '',
+        last_name: ''
+    }
+  },
+  methods: {
+    doRegister() {
+        if(!this.loading) {
+            this.loading = true;
+
+            this.$http({
+                url: this.api_url + 'auth/register',
+                method: 'POST',
+                data: {
+                    first_name: this.first_name,
+                    last_name: this.last_name,
+                    email: this.email,
+                    password: this.password,
+                    confirm_password: this.confirm_password
+                },
+                headers: {'Content-Type': 'application/json'},
+            })
+            .then(response => {
+                console.log(response);
+                this.$router.push('/login');
+
+            })
+            .catch(error => {
+                console.log(error);
+                this.error = true;
+                this.error_msg = error.response.data.message;
+            })
+            .finally(() =>{
+                this.loading = false;
+            });
+        }
+    }
   }
 }
 </script>

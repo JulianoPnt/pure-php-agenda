@@ -43,10 +43,10 @@ export default {
                 },
             })
             .then(response => {
-                // console.log(response);
+                console.log(response);
             })
             .catch(error => {
-                // console.log(error);
+                console.log(error);
                 localStorage.removeItem('user_token');
                 localStorage.removeItem('expires_at');
                 this.$router.push('/login');
@@ -65,7 +65,7 @@ export default {
                 }
             })
             .then(response => {
-                // console.log(response);
+                console.log(response);
                 this.data = response.data.data;
                 console.log(this.data);
             })
