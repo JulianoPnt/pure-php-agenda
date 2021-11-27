@@ -1,4 +1,6 @@
-# Test Cohros
+# Pure PHP Agenda
+
+> This project was made for a interview process that i passed :)
 
 ## Documentation
 
